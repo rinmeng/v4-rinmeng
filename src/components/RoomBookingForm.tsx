@@ -168,7 +168,7 @@ export function RoomBookingForm() {
         form.setValue("room", filteredRooms[0]);
       }
     }
-  }, [selectedArea]);
+  }, [selectedArea, form]);
 
   // Updated timeToSeconds function to parse AM/PM formatted times
   const timeToSeconds = (time: string): number => {
