@@ -89,8 +89,9 @@ const Home: React.FC = () => {
         <Image
           className="absolute inset-0 object-cover w-full h-full brightness-50"
           src={cal}
+          width={1920}
+          height={1080}
           alt="cover"
-          layout="fill"
           objectFit="cover"
         />
 
