@@ -450,7 +450,7 @@ export function RoomBookingForm() {
           </CardContent>
         </Card>
 
-        {initPlaywright && <PlayWright />}
+        {initPlaywright && <PlayWright values={form.getValues()} />}
       </div>
       <Toaster />
     </>
