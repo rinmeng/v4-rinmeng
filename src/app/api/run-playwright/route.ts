@@ -6,6 +6,7 @@ const base_booking_url = "https://bookings.ok.ubc.ca/studyrooms/";
 
 export async function POST(request: Request) {
   try {
+    console.time("Execution Time");
     const { credentials, values } = await request.json();
     console.log("Received credentials:", credentials);
     console.log("Received values:", values);
@@ -132,6 +133,7 @@ export async function POST(request: Request) {
     }
 
     await browser.close();
+    console.time("Execution Time");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("API Error:", error);
