@@ -430,11 +430,7 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={initPlaywright}
-                >
+                <Button type="submit" className="w-full">
                   Submit Room
                 </Button>
               </form>
