@@ -95,8 +95,8 @@ export function RoomBookingForm() {
   return (
     <Card className="w-[400px]">
       <CardHeader>
-        <CardTitle>Room Booking System</CardTitle>
-        <CardDescription>Book a room for your study session.</CardDescription>
+        <CardTitle>UBCO Booking Bot</CardTitle>
+        <CardDescription>Now with prometheus v2 + Playwright.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
