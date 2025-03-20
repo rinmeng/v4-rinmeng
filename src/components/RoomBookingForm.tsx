@@ -144,7 +144,7 @@ export function RoomBookingForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       area: reverseAreaMap[1],
-      room: reverseRoomsMap[2],
+      room: "",
       date: new Date(config.date),
       startTime: formatMinutesToAMPM(config.start_time / 60), // Converts seconds to minutes then AM/PM
       endTime: formatMinutesToAMPM(config.end_time / 60), // Converts seconds to minutes then AM/PM
@@ -202,6 +202,8 @@ export function RoomBookingForm() {
       date: format(values.date, "yyyy-MM-dd"),
       start_time: timeToSeconds(values.startTime),
       end_time: timeToSeconds(values.endTime),
+      room_title: values.title,
+      room_email: values.email,
     };
 
     console.log(formattedValues);
