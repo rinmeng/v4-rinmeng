@@ -73,7 +73,7 @@ export default function PlayWright({ values }: PlayWrightProps) {
   };
 
   return (
-    <Card className="w-2/3">
+    <Card className="w-full">
       <CardHeader className="text-center">
         <CardTitle>PlayWright Initiated</CardTitle>
         <CardDescription>Please do not close this tab.</CardDescription>
@@ -81,7 +81,9 @@ export default function PlayWright({ values }: PlayWrightProps) {
       <CardContent>
         <Card className="bg-muted/30 mb-4">
           <CardContent>
-            <pre className="text-sm">{JSON.stringify(values, null, 2)}</pre>
+            <pre className="text-sm text-wrap">
+              {JSON.stringify(values, null, 2)}
+            </pre>
           </CardContent>
         </Card>
         <Card>

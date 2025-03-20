@@ -220,8 +220,8 @@ export function RoomBookingForm() {
 
   return (
     <>
-      <div className="flex justify-center w-3/4 gap-4 h-auto">
-        <Card className="w-1/3">
+      <div className="flex flex-wrap lg:flex-nowrap w-full mx-4 justify-center gap-4 h-auto">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>UBCO Booking Bot</CardTitle>
             <CardDescription>
