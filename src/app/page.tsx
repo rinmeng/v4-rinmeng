@@ -1,103 +1,177 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import cal from "@/assets/cal.jpeg";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowBigRightIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Tools from "@/components/Tools";
+import Footer from "@/components/Footer";
+import ProjectsFragment from "@/components/ProjectsFragment";
 
-export default function Home() {
+// Animation configuration - adjust these to control timing
+const CONFIG = {
+  displayDuration: 2500, // How long each phrase stays visible (ms)
+  wordStaggerDelay: 0.1, // Delay between words starting to animate (seconds)
+  maxStaggerDelay: 0.7, // Maximum total stagger time to ensure all words animate properly (seconds)
+};
+
+const textArray: string[] = [
+  "Video Editing",
+  "Developing Beautiful Websites",
+  "UI/UX Designs",
+  "Web Development",
+  "Learning New Frameworks",
+  "Analyzing Data",
+  // You can add more items here and they'll work automatically
+];
+
+const AnimatedText: React.FC = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
+      setKey((prev) => prev + 1);
+    }, CONFIG.displayDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentText = textArray[currentTextIndex];
+  const words = currentText.split(" ");
+
+  // Calculate appropriate stagger delay based on word count
+  // This ensures that all words will begin animating within the maxStaggerDelay time
+  const wordCount = words.length;
+  const actualStaggerDelay = Math.min(
+    CONFIG.wordStaggerDelay,
+    CONFIG.maxStaggerDelay / Math.max(1, wordCount - 1)
+  );
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="font-extralight min-w-full px-0 md:px-6 h-24 flex items-center overflow-hidden">
+      <div className="relative w-full text-center" key={key}>
+        {words.map((word, wordIndex) => (
+          <span
+            key={wordIndex}
+            className={`inline-block animate-swipe-in-out text-center`}
+            style={{
+              animationDelay: `${wordIndex * actualStaggerDelay}s`,
+              opacity: 0,
+              position: "relative",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            {word}&nbsp;
+          </span>
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+const Home: React.FC = () => {
+  return (
+    <div className="overflow-x-hidden">
+      <div
+        id="landing"
+        className="w-screen h-screen relative overflow-hidden animate-fade animate-duration-500"
+      >
+        <Image
+          className="absolute inset-0 object-cover w-full h-full brightness-50"
+          src={cal}
+          alt="cover"
+          layout="fill"
+          objectFit="cover"
+        />
+
+        <div
+          className="relative flex justify-center lg:justify-start items-center 
+        h-full w-full container mx-auto"
+        >
+          <Card
+            className="flex flex-col justify-center backdrop-blur-md gap-4 md:gap-6
+          bg-white/30 dark:bg-black/30 border border-white/20
+           dark:border-white/10 shadow-lg mx-4"
+          >
+            <CardContent>
+              <CardHeader>
+                <div>
+                  <div className="text-xl md:text-3xl font-bold">
+                    hi! i&apos;m <span>rin</span> and i like{" "}
+                  </div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full">
+                    <AnimatedText />
+                  </div>
+                </div>
+              </CardHeader>
+              <div className="text-lg">
+                hey there. i&apos;m a ubco student majoring in cs and ds.
+                i&apos;m passionate about building websites with modern
+                technologies.
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Link href="/projects">
+                <Button size="lg" className="w-full">
+                  View Projects
+                  <ArrowBigRightIcon />
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
+
+      <div className="container mx-auto border-x w-full border-dashed py-10"></div>
+      <Separator />
+
+      <div className="h-auto w-screen">
+        <Card className="relative gap-0 border-none shadow-none py-0">
+          <CardHeader className="gap-0 px-0 w-full">
+            <CardTitle
+              className="absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
+              bg-gradient-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20"
+            >
+              Powering my creativity
+              <br />
+              with modern tools
+            </CardTitle>
+            <CardContent className="text-center gap-0">
+              <div className="flex justify-center">
+                <Tools />
+              </div>
+            </CardContent>
+            <CardFooter
+              className="absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight 
+            bg-gradient-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent"
+            >
+              (best viewed on desktop)
+            </CardFooter>
+          </CardHeader>
+        </Card>
+      </div>
+
+      <Separator />
+
+      <div className="container mx-auto border-x w-full border-dashed py-10"></div>
+      <div className="border-b w-full border-dashed"></div>
+      <Card className="container mx-auto rounded-none border-y-0 shadow-none">
+        <ProjectsFragment />
+      </Card>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
