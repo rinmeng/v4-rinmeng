@@ -41,6 +41,7 @@ import {
 
 import { config, areaMap, roomsMap } from "@/lib/config";
 import { toast, Toaster } from "sonner";
+import PlayWright from "@/components/PlayWright";
 
 // Convert seconds to HH:mm format
 const secondsToTime = (seconds: number) => {
@@ -131,6 +132,7 @@ const formSchema = z.object({
 });
 
 export function RoomBookingForm() {
+  const [initPlaywright, setInitPlaywright] = useState(false);
   const [selectedArea, setSelectedArea] = useState<string>();
   const reverseAreaMap = Object.fromEntries(
     Object.entries(areaMap).map(([key, value]) => [value, key])
@@ -208,6 +210,7 @@ export function RoomBookingForm() {
 
     console.log(formattedValues);
     toast.success("Room values: " + JSON.stringify(formattedValues));
+    setInitPlaywright(true);
   }
 
   // Add this state to track the selected start time
@@ -217,155 +220,51 @@ export function RoomBookingForm() {
 
   return (
     <>
-      <Card className="w-[400px]">
-        <CardHeader>
-          <CardTitle>UBCO Booking Bot</CardTitle>
-          <CardDescription>
-            Now with prometheus v2 + Playwright.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="area"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Building</FormLabel>
-                    <Select
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                        setSelectedArea(value);
-                        // Filter rooms based on the selected building's prefix
-                        const prefix = getRoomPrefix(value);
-                        const filteredRooms = Object.keys(roomsMap).filter(
-                          (room) => new RegExp(`^(${prefix})`).test(room)
-                        );
-                        // If there is at least one room for the building, update the room field with the first room
-                        if (filteredRooms.length > 0) {
-                          form.setValue("room", filteredRooms[0]);
-                        }
-                      }}
-                      defaultValue={field.value}
-                    >
-                      <FormControl className="w-full">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select building" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.keys(areaMap).map((area) => (
-                          <SelectItem key={area} value={area}>
-                            {area}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="room"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Room</FormLabel>
-                    <Select
-                      value={field.value} // controlled value always reflects the current room
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                      }}
-                    >
-                      <FormControl className="w-full">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select room" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.keys(roomsMap)
-                          .filter((room) => {
-                            const prefix = getRoomPrefix(selectedArea || "");
-                            return new RegExp(`^(${prefix})`).test(room);
-                          })
-                          .map((room) => (
-                            <SelectItem key={room} value={room}>
-                              {room}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl className="w-full">
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date < new Date() || date > new Date(2025, 11, 31)
-                          }
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid grid-cols-2 gap-4">
+      <div className="flex justify-center w-3/4 gap-4">
+        <Card className="w-1/3">
+          <CardHeader>
+            <CardTitle>UBCO Booking Bot</CardTitle>
+            <CardDescription>
+              Now with prometheus v2 + Playwright.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
-                  name="startTime"
+                  name="area"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Start Time</FormLabel>
+                      <FormLabel>Building</FormLabel>
                       <Select
                         onValueChange={(value) => {
                           field.onChange(value);
-                          setSelectedStartTime(value);
-                          // Automatically update end time when start time changes
-                          const minEndTime = generateTimeSlots(true, value)[0];
-                          form.setValue("endTime", minEndTime);
+                          setSelectedArea(value);
+                          // Filter rooms based on the selected building's prefix
+                          const prefix = getRoomPrefix(value);
+                          const filteredRooms = Object.keys(roomsMap).filter(
+                            (room) => new RegExp(`^(${prefix})`).test(room)
+                          );
+                          // If there is at least one room for the building, update the room field with the first room
+                          if (filteredRooms.length > 0) {
+                            form.setValue("room", filteredRooms[0]);
+                          }
                         }}
                         defaultValue={field.value}
                       >
                         <FormControl className="w-full">
                           <SelectTrigger>
-                            <SelectValue placeholder="Start time" />
+                            <SelectValue placeholder="Select building" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {generateTimeSlots().map((time) => (
-                            <SelectItem key={time} value={time}>
-                              {time}
+                          {Object.keys(areaMap).map((area) => (
+                            <SelectItem key={area} value={area}>
+                              {area}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -376,70 +275,183 @@ export function RoomBookingForm() {
 
                 <FormField
                   control={form.control}
-                  name="endTime"
+                  name="room"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>End Time</FormLabel>
+                      <FormLabel>Room</FormLabel>
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value} // controlled value always reflects the current room
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                        }}
                       >
                         <FormControl className="w-full">
                           <SelectTrigger>
-                            <SelectValue placeholder="End time" />
+                            <SelectValue placeholder="Select room" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {generateTimeSlots(true, selectedStartTime).map(
-                            (time) => (
-                              <SelectItem key={time} value={time}>
-                                {time}
+                          {Object.keys(roomsMap)
+                            .filter((room) => {
+                              const prefix = getRoomPrefix(selectedArea || "");
+                              return new RegExp(`^(${prefix})`).test(room);
+                            })
+                            .map((room) => (
+                              <SelectItem key={room} value={room}>
+                                {room}
                               </SelectItem>
-                            )
-                          )}
+                            ))}
                         </SelectContent>
                       </Select>
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title *</FormLabel>
-                    <FormControl className="w-full">
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl className="w-full">
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) =>
+                              date < new Date() || date > new Date(2025, 11, 31)
+                            }
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email *</FormLabel>
-                    <FormControl className="w-full">
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="startTime"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Start Time</FormLabel>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            setSelectedStartTime(value);
+                            // Automatically update end time when start time changes
+                            const minEndTime = generateTimeSlots(
+                              true,
+                              value
+                            )[0];
+                            form.setValue("endTime", minEndTime);
+                          }}
+                          defaultValue={field.value}
+                        >
+                          <FormControl className="w-full">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Start time" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {generateTimeSlots().map((time) => (
+                              <SelectItem key={time} value={time}>
+                                {time}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
 
-              <Button type="submit" className="w-full">
-                Book Room
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                  <FormField
+                    control={form.control}
+                    name="endTime"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>End Time</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl className="w-full">
+                            <SelectTrigger>
+                              <SelectValue placeholder="End time" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {generateTimeSlots(true, selectedStartTime).map(
+                              (time) => (
+                                <SelectItem key={time} value={time}>
+                                  {time}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title *</FormLabel>
+                      <FormControl className="w-full">
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email *</FormLabel>
+                      <FormControl className="w-full">
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button type="submit" className="w-full">
+                  Book Room
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        {initPlaywright && <PlayWright />}
+      </div>
       <Toaster />
     </>
   );
