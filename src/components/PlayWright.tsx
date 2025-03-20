@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormField,
@@ -20,19 +21,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-// Define a type for the booking form values based on your RoomBookingForm schema
-interface BookingFormValues {
+// Define a type for the formatted booking values
+export type FormattedValues = {
   area: string;
   room: string;
-  date: Date;
-  startTime: string;
-  endTime: string;
-  title: string;
-  email: string;
-}
+  date: string;
+  start_time: number;
+  end_time: number;
+  room_title: string;
+  room_email: string;
+};
 
 interface PlayWrightProps {
-  values: BookingFormValues;
+  values: FormattedValues;
 }
 
 // Zod schema for username and password login
@@ -54,14 +55,9 @@ export default function PlayWright({ values }: PlayWrightProps) {
   });
 
   const onCwlSubmit = (data: LoginFormValues) => {
-    setcwlAcceptedState();
+    setCwlAccepted(true);
     toast.success("CWL credentials accepted");
     loginForm.reset();
-  };
-
-  // Helper to update state (wrap setCwlAccepted to allow future additional logic)
-  const setcwlAcceptedState = () => {
-    setCwlAccepted(true);
   };
 
   return (
@@ -97,12 +93,7 @@ export default function PlayWright({ values }: PlayWrightProps) {
                     <FormItem>
                       <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <input
-                          type="text"
-                          className="border rounded w-full p-2"
-                          placeholder="Username"
-                          {...field}
-                        />
+                        <Input type="text" placeholder="Username" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -115,9 +106,8 @@ export default function PlayWright({ values }: PlayWrightProps) {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <input
+                        <Input
                           type="password"
-                          className="border rounded w-full p-2"
                           placeholder="Password"
                           {...field}
                         />

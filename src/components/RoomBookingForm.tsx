@@ -68,7 +68,6 @@ const generateTimeSlots = (isEndTime: boolean = false, startTime?: string) => {
 
   if (isEndTime && startTime) {
     const [hourStr, minuteStr] = startTime.split(/[: ]/);
-    // Convert startTime string like "12:00 AM" or "6:00 AM" to 24-hour minutes
     let hour = Number(hourStr);
     const minute = Number(minuteStr);
     const period = startTime.includes("PM") ? "PM" : "AM";
@@ -76,14 +75,11 @@ const generateTimeSlots = (isEndTime: boolean = false, startTime?: string) => {
     if (period === "AM" && hour === 12) hour = 0;
     const startTotalMinutes = hour * 60 + minute;
 
-    // Special case for "12:00 AM"
     if (startTotalMinutes === 0) {
       return ["12:30 AM"];
     }
 
-    // End times should be at least 30 minutes after start time
     const minEndTimeMinutes = startTotalMinutes + 30;
-    // Maximum end time is either 6 hours ahead or 12:30 AM (which is 1470 minutes)
     const maxEndTimeMinutes = Math.min(
       startTotalMinutes + 6 * 60,
       24 * 60 + 30
@@ -93,7 +89,6 @@ const generateTimeSlots = (isEndTime: boolean = false, startTime?: string) => {
       slots.push(formatMinutesToAMPM(i));
     }
   } else {
-    // For start time slots: from 6:00 AM (360 minutes) to midnight (1440 minutes)
     for (let i = 6 * 60; i <= 24 * 60; i += 30) {
       slots.push(formatMinutesToAMPM(i));
     }
@@ -113,9 +108,9 @@ const getRoomPrefix = (area: string) => {
     case "Commons: Floor 3":
       return "COM 3";
     case "EME: Tower 1":
-      return "EME 116"; // Only match EME 116x rooms for Tower 1
+      return "EME 116";
     case "EME: Tower 2":
-      return "(EME 1252|EME 1254|EME 2)"; // Match EME 1252, 1254, and all EME 2xxx rooms
+      return "(EME 1252|EME 1254|EME 2)";
     default:
       return "";
   }
@@ -131,16 +126,29 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
+type FormattedValues = {
+  area: string;
+  room: string;
+  date: string;
+  start_time: number;
+  end_time: number;
+  room_title: string;
+  room_email: string;
+};
+
 export function RoomBookingForm() {
   const [initPlaywright, setInitPlaywright] = useState(false);
   const [selectedArea, setSelectedArea] = useState<string>();
+  const [formattedValues, setFormattedValues] =
+    useState<FormattedValues | null>(null);
+
   const reverseAreaMap = Object.fromEntries(
     Object.entries(areaMap).map(([key, value]) => [value, key])
   );
 
-  //   const reverseRoomsMap = Object.fromEntries(
-  //     Object.entries(roomsMap).map(([key, value]) => [value, key])
-  //   );
+  const reverseRoomsMap = Object.fromEntries(
+    Object.entries(roomsMap).map(([key, value]) => [value, key])
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -148,21 +156,19 @@ export function RoomBookingForm() {
       area: reverseAreaMap[1],
       room: "",
       date: new Date(config.date),
-      startTime: formatMinutesToAMPM(config.start_time / 60), // Converts seconds to minutes then AM/PM
-      endTime: formatMinutesToAMPM(config.end_time / 60), // Converts seconds to minutes then AM/PM
+      startTime: formatMinutesToAMPM(config.start_time / 60),
+      endTime: formatMinutesToAMPM(config.end_time / 60),
       title: config.room_title,
       email: config.email,
     },
   });
 
-  // Whenever the selectedArea changes, re‑evaluate the room value.
   useEffect(() => {
     if (selectedArea) {
       const prefix = getRoomPrefix(selectedArea);
       const filteredRooms = Object.keys(roomsMap).filter((room) =>
         new RegExp(`^(${prefix})`).test(room)
       );
-      // If the current room is not valid for the new building, update it.
       if (
         filteredRooms.length > 0 &&
         !filteredRooms.includes(form.getValues("room"))
@@ -172,7 +178,6 @@ export function RoomBookingForm() {
     }
   }, [selectedArea, form]);
 
-  // Updated timeToSeconds function to parse AM/PM formatted times
   const timeToSeconds = (time: string): number => {
     const [timePart, period] = time.split(" ");
     const [hourStr, minuteStr] = timePart.split(":");
@@ -183,7 +188,6 @@ export function RoomBookingForm() {
     return hour * 3600 + minute * 60;
   };
 
-  // Add these type checks
   function isValidArea(area: string): area is keyof typeof areaMap {
     return area in areaMap;
   }
@@ -198,9 +202,9 @@ export function RoomBookingForm() {
       return;
     }
 
-    const formattedValues = {
-      area: areaMap[values.area],
-      room: roomsMap[values.room],
+    const calcFormattedValues: FormattedValues = {
+      area: areaMap[values.area].toString(),
+      room: roomsMap[values.room].toString(),
       date: format(values.date, "yyyy-MM-dd"),
       start_time: timeToSeconds(values.startTime),
       end_time: timeToSeconds(values.endTime),
@@ -208,12 +212,12 @@ export function RoomBookingForm() {
       room_email: values.email,
     };
 
-    console.log(formattedValues);
-    toast.success("Room values: " + JSON.stringify(formattedValues));
+    console.log(calcFormattedValues);
+    toast.success("Room values: " + JSON.stringify(calcFormattedValues));
+    setFormattedValues(calcFormattedValues);
     setInitPlaywright(true);
   }
 
-  // Add this state to track the selected start time
   const [selectedStartTime, setSelectedStartTime] = useState(
     secondsToTime(config.start_time)
   );
@@ -244,12 +248,10 @@ export function RoomBookingForm() {
                         onValueChange={(value) => {
                           field.onChange(value);
                           setSelectedArea(value);
-                          // Filter rooms based on the selected building's prefix
                           const prefix = getRoomPrefix(value);
                           const filteredRooms = Object.keys(roomsMap).filter(
                             (room) => new RegExp(`^(${prefix})`).test(room)
                           );
-                          // If there is at least one room for the building, update the room field with the first room
                           if (filteredRooms.length > 0) {
                             form.setValue("room", filteredRooms[0]);
                           }
@@ -272,7 +274,6 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="room"
@@ -280,10 +281,8 @@ export function RoomBookingForm() {
                     <FormItem>
                       <FormLabel>Room</FormLabel>
                       <Select
-                        value={field.value} // controlled value always reflects the current room
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                        }}
+                        value={field.value}
+                        onValueChange={field.onChange}
                       >
                         <FormControl className="w-full">
                           <SelectTrigger>
@@ -306,7 +305,6 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="date"
@@ -346,7 +344,6 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -358,7 +355,6 @@ export function RoomBookingForm() {
                           onValueChange={(value) => {
                             field.onChange(value);
                             setSelectedStartTime(value);
-                            // Automatically update end time when start time changes
                             const minEndTime = generateTimeSlots(
                               true,
                               value
@@ -383,7 +379,6 @@ export function RoomBookingForm() {
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form.control}
                     name="endTime"
@@ -413,7 +408,6 @@ export function RoomBookingForm() {
                     )}
                   />
                 </div>
-
                 <FormField
                   control={form.control}
                   name="title"
@@ -427,7 +421,6 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="email"
@@ -441,7 +434,6 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-
                 <Button type="submit" className="w-full">
                   Book Room
                 </Button>
@@ -449,8 +441,9 @@ export function RoomBookingForm() {
             </Form>
           </CardContent>
         </Card>
-
-        {initPlaywright && <PlayWright values={form.getValues()} />}
+        {initPlaywright && formattedValues && (
+          <PlayWright values={formattedValues} />
+        )}
       </div>
       <Toaster />
     </>
