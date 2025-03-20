@@ -1,7 +1,7 @@
 export const config = {
   area: 1,
   room: 2,
-  date: "2025-03-25",
+  date: new Date().toISOString().split("T")[0], // Today's date as "YYYY-MM-DD"
   start_time: 21600,
   end_time: 43200,
   room_title: "Booked by UBCOBookingBot",
