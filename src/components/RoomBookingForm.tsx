@@ -151,7 +151,7 @@ export function RoomBookingForm() {
     defaultValues: {
       area: reverseAreaMap[1],
       room: "",
-      date: new Date(config.date),
+      date: new Date().toISOString().split("T")[0],
       startTime: formatMinutesToAMPM(config.start_time / 60),
       endTime: formatMinutesToAMPM(config.end_time / 60),
       title: config.room_title,
