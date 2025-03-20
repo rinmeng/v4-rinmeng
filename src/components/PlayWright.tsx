@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -45,19 +44,32 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function PlayWright({ values }: PlayWrightProps) {
-  // State tracking the CWL login form submission.
-  const [cwlAccepted, setCwlAccepted] = useState(false);
-
   // CWL login form hook using react-hook-form with Zod
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { username: "", password: "" },
   });
 
-  const onCwlSubmit = () => {
-    setCwlAccepted(true);
+  async function runPlayWrightAPI(credentials: LoginFormValues): Promise<void> {
+    const payload = {
+      credentials,
+      values,
+    };
+    const res = await fetch("/api/run-playwright", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      toast.success("Playwright executed successfully");
+    } else {
+      toast.error("Error running Playwright");
+    }
+  }
+
+  const onCwlSubmit = (data: LoginFormValues) => {
     toast.success("CWL credentials accepted");
-    loginForm.reset();
+    runPlayWrightAPI(data);
   };
 
   return (
@@ -67,73 +79,61 @@ export default function PlayWright({ values }: PlayWrightProps) {
         <CardDescription>Please do not close this tab.</CardDescription>
       </CardHeader>
       <CardContent>
-        {cwlAccepted ? (
-          <div className="text-center font-semibold text-lg">
-            Booking Accepted
-          </div>
-        ) : (
-          <>
-            <Card className="bg-muted/30 mb-4">
-              <CardContent>
-                <pre className="text-sm">{JSON.stringify(values, null, 2)}</pre>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>CWL Login</CardTitle>
-                <CardDescription>
-                  Please enter your CWL credentials to run the bot.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Form {...loginForm}>
-                  <form
-                    onSubmit={loginForm.handleSubmit(onCwlSubmit)}
-                    className="space-y-4"
-                  >
-                    <FormField
-                      control={loginForm.control}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Username</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="text"
-                              placeholder="Username"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="password"
-                              placeholder="Password"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full">
-                      Login & Run Bot
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-          </>
-        )}
+        <Card className="bg-muted/30 mb-4">
+          <CardContent>
+            <pre className="text-sm">{JSON.stringify(values, null, 2)}</pre>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>CWL Login</CardTitle>
+            <CardDescription>
+              Please enter your CWL credentials to run the bot.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...loginForm}>
+              <form
+                onSubmit={loginForm.handleSubmit(onCwlSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={loginForm.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input type="text" placeholder="Username" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={loginForm.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full">
+                  Login & Run Bot
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
       </CardContent>
     </Card>
   );
