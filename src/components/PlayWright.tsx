@@ -54,7 +54,7 @@ export default function PlayWright({ values }: PlayWrightProps) {
     defaultValues: { username: "", password: "" },
   });
 
-  const onCwlSubmit = (data: LoginFormValues) => {
+  const onCwlSubmit = () => {
     setCwlAccepted(true);
     toast.success("CWL credentials accepted");
     loginForm.reset();

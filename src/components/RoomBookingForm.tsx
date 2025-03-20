@@ -146,10 +146,6 @@ export function RoomBookingForm() {
     Object.entries(areaMap).map(([key, value]) => [value, key])
   );
 
-  const reverseRoomsMap = Object.fromEntries(
-    Object.entries(roomsMap).map(([key, value]) => [value, key])
-  );
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
