@@ -209,7 +209,7 @@ export function RoomBookingForm() {
     };
 
     console.log(calcFormattedValues);
-    toast.success("Room values: " + JSON.stringify(calcFormattedValues));
+    toast.success("Booking submitted, please proceed to the next panel.");
     setFormattedValues(calcFormattedValues);
     setInitPlaywright(true);
   }
@@ -220,7 +220,7 @@ export function RoomBookingForm() {
 
   return (
     <>
-      <div className="flex justify-center w-3/4 gap-4">
+      <div className="flex justify-center w-3/4 gap-4 h-auto">
         <Card className="w-1/3">
           <CardHeader>
             <CardTitle>UBCO Booking Bot</CardTitle>
@@ -430,8 +430,12 @@ export function RoomBookingForm() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  Book Room
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={initPlaywright}
+                >
+                  Submit Room
                 </Button>
               </form>
             </Form>
