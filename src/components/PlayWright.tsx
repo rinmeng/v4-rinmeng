@@ -73,7 +73,7 @@ export default function PlayWright({ values }: PlayWrightProps) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full lg:w-1/2">
       <CardHeader className="text-center">
         <CardTitle>PlayWright Initiated</CardTitle>
         <CardDescription>Please do not close this tab.</CardDescription>
