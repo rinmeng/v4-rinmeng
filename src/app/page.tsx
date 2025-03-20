@@ -147,10 +147,8 @@ const Home: React.FC = () => {
               <br />
               with modern tools
             </CardTitle>
-            <CardContent className="text-center gap-0">
-              <div className="flex justify-center">
-                <Tools />
-              </div>
+            <CardContent className="px-0 flex justify-center w-full overflow-hidden">
+              <Tools />
             </CardContent>
             <CardFooter
               className="absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight 
