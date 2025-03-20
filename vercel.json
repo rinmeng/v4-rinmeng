@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/run-playwright": {
+    "api/run-playwright/route": {
       "maxDuration": 60
     }
   }
