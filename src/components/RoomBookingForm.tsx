@@ -60,6 +60,25 @@ const generateTimeSlots = () => {
   return slots;
 };
 
+const getRoomPrefix = (area: string) => {
+  switch (area) {
+    case "Library":
+      return "LIB";
+    case "Commons: Floor 0":
+      return "COM 0";
+    case "Commons: Floor 1":
+      return "COM 1";
+    case "Commons: Floor 3":
+      return "COM 3";
+    case "EME: Tower 1":
+      return "EME 1";
+    case "EME: Tower 2":
+      return "EME 2";
+    default:
+      return "";
+  }
+};
+
 const formSchema = z.object({
   area: z.string(),
   room: z.string(),
@@ -149,9 +168,7 @@ export function RoomBookingForm() {
                     <SelectContent>
                       {Object.keys(roomsMap)
                         .filter((room) =>
-                          room.startsWith(
-                            selectedArea === "Library" ? "LIB" : "COM"
-                          )
+                          room.startsWith(getRoomPrefix(selectedArea))
                         )
                         .map((room) => (
                           <SelectItem key={room} value={room}>

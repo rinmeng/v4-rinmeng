@@ -1,6 +1,6 @@
 export const config = {
-  area: 6,
-  room: 23,
+  area: 1,
+  room: 2,
   date: "2025-03-25",
   start_time: 21600,
   end_time: 43200,
@@ -30,7 +30,6 @@ export const roomsMap = {
   "COM 118 (6)": 26,
   "COM 119 (6)": 27,
   "COM 120 (6)": 28,
-  "COM 121 (10)": 29,
   "COM 301 (4 people)": 30,
   "COM 302 (4)": 31,
   "COM 303 (4)": 32,
