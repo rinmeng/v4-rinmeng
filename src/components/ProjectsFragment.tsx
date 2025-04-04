@@ -33,6 +33,8 @@ import FirebaseLogo from "@/assets/logos/firebase-svgrepo-com.svg";
 // import PythonLogo from "@/assets/logos/python-svgrepo-com.svg";
 import GitHubLogo from "@/assets/logos/github-white.svg";
 import MySQLLogo from "@/assets/logos/mysql-svgrepo-com.svg";
+import CSharpLogo from "@/assets/logos/csharp-svgrepo-com.svg";
+import UnityLogo from "@/assets/logos/unity-svgrepo-com.svg";
 
 // import images
 import KDT from "@/assets/projects/KDT.png";
@@ -40,6 +42,8 @@ import RM from "@/assets/projects/RM.png";
 import PC8TH from "@/assets/projects/PC8TH.png";
 import CTMS from "@/assets/projects/CTMS.png";
 import HIKELOWNA from "@/assets/projects/HIKELOWNA.png";
+import PHIL331 from "@/assets/projects/PHIL331.png";
+import COSC416 from "@/assets/projects/COSC416.png";
 import Image, { StaticImageData } from "next/image";
 
 interface ProjectFragmentProps {
@@ -53,7 +57,65 @@ interface ProjectFragmentProps {
 
 const projects = [
   {
-    title: "*Collaborative Task Management System (CTMS)",
+    title: "3 Big Booms",
+    imgSrc: COSC416,
+    stacks: [UnityLogo, CSharpLogo],
+    description: `This is a game development project in Unity that 
+    I developed with my team members for a course project. It was a Retro Game Jam with a 
+    "twist" theme, where we transformed a Bomberman game into a 2D platformer game.
+    I was in charge of the game design and development, where I designed the game's mechanics,
+    such as power-ups, enemy AI, and weapons.`,
+    link: "https://stewdio.itch.io/3-big-booms",
+    github_link: "https://github.com/eagno/cosc416-Project",
+  },
+  {
+    title: "Personal Website V4",
+    imgSrc: RM,
+    stacks: [
+      HTML5Logo,
+      CSS3Logo,
+      JavaScriptLogo,
+      TypeScriptLogo,
+      NodeJSLogo,
+      ViteLogo,
+      ReactLogo,
+      TypeScriptLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      VercelLogo,
+    ],
+    description: `There are many stages to my personal website development. This website follows similar iterations to KPop Dance Team's website, 
+    where I went from a simple HTML/CSS website, to NodeJS TailwindCSS, to ReactJS + TailwindCSS, to Vite + ReactTS + shadcn/ui,
+    and now to NextJS + ReactTS + shadcn/ui.`,
+    link: "https://rinmeng.vercel.app",
+    github_link: "https://github.com/rinmeng/v4-rinmeng",
+  },
+  {
+    title: "PHIL331 Project DCE Surveys",
+    imgSrc: PHIL331,
+    stacks: [
+      HTML5Logo,
+      CSS3Logo,
+      JavaScriptLogo,
+      NodeJSLogo,
+      ViteLogo,
+      ReactLogo,
+      TailwindCSSLogo,
+      ShadCNUILogo,
+      VercelLogo,
+      SupabaseLogo,
+      PostgreSQLLogo,
+    ],
+    description: `This PHIL331 is a project website that I developed for my course. 
+    I am in charge of the website development, making sure that the website
+    is functional and intuitive so that the users can easily take the surveys, and 
+    the data is collected properly. The main skills gained here are mainly using graphs
+    from shadcn/ui and Supabase's Auth Policies configuration.`,
+    link: "https://phil331.vercel.app",
+    github_link: "https://github.com/rinmeng/phil331",
+  },
+  {
+    title: "Collaborative Task Management System (CTMS)",
     imgSrc: CTMS,
     stacks: [
       HTML5Logo,
@@ -69,8 +131,9 @@ const projects = [
       DockerLogo,
     ],
     description: `
-    CTMS is role-based task management system that I developed for a course project with my group members. 
-    I am the assumed scrum master and I am also in charge of developing both the frontend and backend of the system.
+    CTMS is role-based task management system that I developed for a course project 
+    with my group members. I was the assumed scrum master and I was also in charge of 
+    developing both the frontend and backend of the system.
     This was my first full exposure to full-stack development and RESTful APIs.
     `,
     github_link: "https://github.com/rinmeng/NodeNinjas",
@@ -100,27 +163,7 @@ const projects = [
       PostgreSQLLogo,
     ],
   },
-  {
-    title: "Personal Website V3",
-    imgSrc: RM,
-    stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      JavaScriptLogo,
-      TypeScriptLogo,
-      NodeJSLogo,
-      ViteLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      ShadCNUILogo,
-      TailwindCSSLogo,
-      VercelLogo,
-    ],
-    description: `There are many stages to my personal website development. This website follows similar iterations to KPop Dance Team's website, 
-    where I went from a simple HTML/CSS website, to NodeJS TailwindCSS, to ReactJS + TailwindCSS, and now to Vite + ReactTS + shadcn/ui.`,
-    link: "https://rinmeng.vercel.app",
-    github_link: "https://github.com/rinmeng/v3-rinmeng",
-  },
+
   {
     title: "PC8TH",
     imgSrc: PC8TH,
