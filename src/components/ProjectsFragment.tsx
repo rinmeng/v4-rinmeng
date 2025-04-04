@@ -8,8 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowBigRightIcon } from "lucide-react";
+import { ArrowBigRightIcon, ArrowDownIcon, ArrowRight } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 
 // Import all logos
 import ViteLogo from "@/assets/logos/vite-svgrepo-com.svg";
@@ -57,20 +58,14 @@ interface ProjectFragmentProps {
 
 const projects = [
   {
-    title: "3 Big Booms",
-    imgSrc: COSC416,
-    stacks: [UnityLogo, CSharpLogo],
-    description: `This is a game development project in Unity that 
-    I developed with my team members for a course project. It was a Retro Game Jam with a 
-    "twist" theme, where we transformed a Bomberman game into a 2D platformer game.
-    I was in charge of the game design and development, where I designed the game's mechanics,
-    such as power-ups, enemy AI, and weapons.`,
-    link: "https://stewdio.itch.io/3-big-booms",
-    github_link: "https://github.com/eagno/cosc416-Project",
-  },
-  {
-    title: "Personal Website V4",
-    imgSrc: RM,
+    title: "KPop Dance Team's Website V3",
+
+    imgSrc: KDT,
+    description: `I oversaw the Digital Producer role where I was in charge of their website development, maintenance. 
+      I also developed a custom CMS for them to manage their website content such as links, positions, and sponsors.
+      This website went through multiple iterations, from a simple HTML/CSS website to a ReactJS + TailwindCSS website, and now to a Vite + ReactTS + shadcn/ui website.`,
+    link: "https://kdtsuo.vercel.app",
+    github_link: "https://github.com/kdtsuo/v3",
     stacks: [
       HTML5Logo,
       CSS3Logo,
@@ -80,39 +75,12 @@ const projects = [
       ViteLogo,
       ReactLogo,
       TypeScriptLogo,
-      ShadCNUILogo,
-      TailwindCSSLogo,
-      VercelLogo,
-    ],
-    description: `There are many stages to my personal website development. This website follows similar iterations to KPop Dance Team's website, 
-    where I went from a simple HTML/CSS website, to NodeJS TailwindCSS, to ReactJS + TailwindCSS, to Vite + ReactTS + shadcn/ui,
-    and now to NextJS + ReactTS + shadcn/ui.`,
-    link: "https://rinmeng.vercel.app",
-    github_link: "https://github.com/rinmeng/v4-rinmeng",
-  },
-  {
-    title: "PHIL331 Project DCE Surveys",
-    imgSrc: PHIL331,
-    stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      JavaScriptLogo,
-      NodeJSLogo,
-      ViteLogo,
-      ReactLogo,
       TailwindCSSLogo,
       ShadCNUILogo,
       VercelLogo,
       SupabaseLogo,
       PostgreSQLLogo,
     ],
-    description: `This PHIL331 is a project website that I developed for my course. 
-    I am in charge of the website development, making sure that the website
-    is functional and intuitive so that the users can easily take the surveys, and 
-    the data is collected properly. The main skills gained here are mainly using graphs
-    from shadcn/ui and Supabase's Auth Policies configuration.`,
-    link: "https://phil331.vercel.app",
-    github_link: "https://github.com/rinmeng/phil331",
   },
   {
     title: "Collaborative Task Management System (CTMS)",
@@ -139,14 +107,45 @@ const projects = [
     github_link: "https://github.com/rinmeng/NodeNinjas",
   },
   {
-    title: "KPop Dance Team's Website V3",
+    title: "3 Big Booms",
+    imgSrc: COSC416,
+    stacks: [UnityLogo, CSharpLogo],
+    description: `This is a game development project in Unity that 
+    I developed with my team members for a course project. It was a Retro Game Jam with a 
+    "twist" theme, where we transformed a Bomberman game into a 2D platformer game.
+    I was in charge of the game design and development, where I designed the game's mechanics,
+    such as power-ups, enemy AI, and weapons.`,
+    link: "https://stewdio.itch.io/3-big-booms",
+    github_link: "https://github.com/eagno/cosc416-Project",
+  },
+  {
+    title: "PHIL331 Project DCE Surveys",
+    imgSrc: PHIL331,
+    stacks: [
+      HTML5Logo,
+      CSS3Logo,
+      JavaScriptLogo,
+      NodeJSLogo,
+      ViteLogo,
+      ReactLogo,
+      TailwindCSSLogo,
+      ShadCNUILogo,
+      VercelLogo,
+      SupabaseLogo,
+      PostgreSQLLogo,
+    ],
+    description: `This PHIL331 is a project website that I developed for my course. 
+    I am in charge of the website development, making sure that the website
+    is functional and intuitive so that the users can easily take the surveys, and 
+    the data is collected properly. The main skills gained here are mainly using graphs
+    from shadcn/ui and Supabase's Auth Policies configuration.`,
+    link: "https://phil331.vercel.app",
+    github_link: "https://github.com/rinmeng/phil331",
+  },
 
-    imgSrc: KDT,
-    description: `I oversaw the Digital Producer role where I was in charge of their website development, maintenance. 
-      I also developed a custom CMS for them to manage their website content such as links, positions, and sponsors.
-      This website went through multiple iterations, from a simple HTML/CSS website to a ReactJS + TailwindCSS website, and now to a Vite + ReactTS + shadcn/ui website.`,
-    link: "https://kdtsuo.vercel.app",
-    github_link: "https://github.com/kdtsuo/v3",
+  {
+    title: "Personal Website V4",
+    imgSrc: RM,
     stacks: [
       HTML5Logo,
       CSS3Logo,
@@ -156,12 +155,15 @@ const projects = [
       ViteLogo,
       ReactLogo,
       TypeScriptLogo,
-      TailwindCSSLogo,
       ShadCNUILogo,
+      TailwindCSSLogo,
       VercelLogo,
-      SupabaseLogo,
-      PostgreSQLLogo,
     ],
+    description: `There are many stages to my personal website development. This website follows similar iterations to KPop Dance Team's website, 
+    where I went from a simple HTML/CSS website, to NodeJS TailwindCSS, to ReactJS + TailwindCSS, to Vite + ReactTS + shadcn/ui,
+    and now to NextJS + ReactTS + shadcn/ui.`,
+    link: "https://rinmeng.vercel.app",
+    github_link: "https://github.com/rinmeng/v4-rinmeng",
   },
 
   {
@@ -272,7 +274,12 @@ const ProjectFragment: React.FC<ProjectFragmentProps> = ({
   );
 };
 
-const ProjectsFragment: React.FC = () => {
+const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
+  limitDisplay = false,
+}) => {
+  // If limitDisplay is true, only show the first 3 projects
+  const displayedProjects = limitDisplay ? projects.slice(0, 3) : projects;
+
   return (
     <div className="container mx-auto px-0 ">
       <div className="flex w-full flex-col items-center justify-start h-auto">
@@ -290,9 +297,20 @@ const ProjectsFragment: React.FC = () => {
            border-b rounded-none w-full border-dashed"
           ></div>
           <CardContent className="space-y-6 md:space-y-4 ">
-            {projects.map((project) => (
+            {displayedProjects.map((project) => (
               <ProjectFragment key={project.title} {...project} />
             ))}
+
+            {limitDisplay && (
+              <div className="flex justify-center pt-6">
+                <Link href="/projects">
+                  <Button size="lg" variant="outline" className="group">
+                    See More
+                    <ArrowRight />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

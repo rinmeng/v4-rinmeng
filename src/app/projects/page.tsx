@@ -10,7 +10,7 @@ export default function Projects() {
       <Card className="relative animate-fade animate-duration-500 py-0 border-none shadow-none gap-0">
         <div className="border-b w-full border-dashed"></div>
         <CardContent className="container mx-auto px-0 border-y-0 border-x rounded-none">
-          <ProjectsFragment />
+          <ProjectsFragment limitDisplay={false} />
         </CardContent>
       </Card>
 

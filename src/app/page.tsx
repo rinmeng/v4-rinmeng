@@ -165,7 +165,7 @@ const Home: React.FC = () => {
       <div className="container mx-auto border-x w-full border-dashed py-10"></div>
       <div className="border-b w-full border-dashed"></div>
       <Card className="container mx-auto rounded-none border-y-0 shadow-none">
-        <ProjectsFragment />
+        <ProjectsFragment limitDisplay={true} />
       </Card>
 
       <Footer />
