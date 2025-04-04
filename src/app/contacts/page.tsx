@@ -127,7 +127,7 @@ export default function Contacts() {
   ];
 
   return (
-    <div className="animate-fade animate-duration-500">
+    <div className="animate-fade-in animate-duration-500">
       <div className="container py-16 mx-auto rounded-none shadow-none border-y-0 border-x"></div>
       <div className="border-b w-full border-dashed"></div>
 

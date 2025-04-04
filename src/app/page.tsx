@@ -81,7 +81,7 @@ const AnimatedText: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden animate-fade-in">
       <div
         id="landing"
         className="w-screen h-screen relative overflow-hidden animate-fade animate-duration-500"
