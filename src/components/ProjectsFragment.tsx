@@ -36,6 +36,7 @@ import GitHubLogo from "@/assets/logos/github-white.svg";
 import MySQLLogo from "@/assets/logos/mysql-svgrepo-com.svg";
 import CSharpLogo from "@/assets/logos/csharp-svgrepo-com.svg";
 import UnityLogo from "@/assets/logos/unity-svgrepo-com.svg";
+import NextJSLogo from "@/assets/logos/next-js-svgrepo-com.svg";
 
 // import images
 import KDT from "@/assets/projects/KDT.png";
@@ -45,6 +46,8 @@ import CTMS from "@/assets/projects/CTMS.png";
 import HIKELOWNA from "@/assets/projects/HIKELOWNA.png";
 import PHIL331 from "@/assets/projects/PHIL331.png";
 import COSC416 from "@/assets/projects/COSC416.png";
+import SEAC from "@/assets/projects/SEAC.png";
+
 import Image, { StaticImageData } from "next/image";
 
 interface ProjectFragmentProps {
@@ -58,7 +61,7 @@ interface ProjectFragmentProps {
 
 const projects = [
   {
-    title: "KPop Dance Team's Website V3",
+    title: "KPop Dance Team's Website",
 
     imgSrc: KDT,
     description: `I oversaw the Digital Producer role where I was in charge of their website development, maintenance. 
@@ -73,6 +76,30 @@ const projects = [
       TypeScriptLogo,
       NodeJSLogo,
       ViteLogo,
+      ReactLogo,
+      TypeScriptLogo,
+      TailwindCSSLogo,
+      ShadCNUILogo,
+      VercelLogo,
+      SupabaseLogo,
+      PostgreSQLLogo,
+    ],
+  },
+  {
+    title: "SEACSUO's Website",
+
+    imgSrc: SEAC,
+    description: `Developed a now, production-ready website for the South East Asian Club (SEAC) 
+    that highlights the club’s mission, events, and merchandise. As the lead Web Developer, 
+    I designed and built a custom CMS to allow executives to easily manage and update content.`,
+    link: "https://seacsuo.vercel.app",
+    github_link: "https://github.com/seacsuo/v2",
+    stacks: [
+      HTML5Logo,
+      CSS3Logo,
+      TypeScriptLogo,
+      NodeJSLogo,
+      NextJSLogo,
       ReactLogo,
       TypeScriptLogo,
       TailwindCSSLogo,
@@ -144,7 +171,7 @@ const projects = [
   },
 
   {
-    title: "Personal Website V4",
+    title: "Personal Website",
     imgSrc: RM,
     stacks: [
       HTML5Logo,
@@ -153,6 +180,7 @@ const projects = [
       TypeScriptLogo,
       NodeJSLogo,
       ViteLogo,
+      NextJSLogo,
       ReactLogo,
       TypeScriptLogo,
       ShadCNUILogo,

@@ -36,6 +36,7 @@ import PremiereProLogo from "@/assets/logos/adobe-premiere-svgrepo-com.svg";
 import ExcelLogo from "@/assets/logos/excel-svgrepo-com.svg";
 import LatexLogo from "@/assets/logos/latex-svgrepo-com.svg";
 import MySQLLogo from "@/assets/logos/mysql-svgrepo-com.svg";
+import NextJSLogo from "@/assets/logos/next-js-svgrepo-com.svg";
 import Image from "next/image";
 
 interface IconItem {
@@ -142,6 +143,11 @@ const Tools: React.FC = () => {
           text: "LaTeX",
           imgSrc: LatexLogo,
           className: "dark:invert-100 not-dark:invert-0",
+        },
+        {
+          text: "Next.js",
+          imgSrc: NextJSLogo,
+          className: "dark:invert-0 not-dark:invert-100",
         },
       ],
     },
