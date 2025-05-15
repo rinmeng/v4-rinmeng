@@ -1,4 +1,4 @@
-import rmlogo from "@/assets/rmlogo.png";
+import rmlogo from "@/assets/rmlogov2.png";
 import {
   Card,
   CardContent,
@@ -23,7 +23,7 @@ export default function Footer() {
         </CardHeader>
         <CardContent>
           <div className="text-sm flex items-center justify-center space-x-2">
-            <p>Made with ❤️ by</p>
+            <p>made with ❤️ by</p>
             <span>
               <a
                 href="https://github.com/rinmeng"

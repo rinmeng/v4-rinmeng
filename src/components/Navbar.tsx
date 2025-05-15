@@ -16,7 +16,7 @@ import githublogo from "@/assets/icons/githublogo.png";
 import instagramlogo from "@/assets/icons/instagramlogo.png";
 import linkedinlogo from "@/assets/icons/linkedinlogo.png";
 import maillogo from "@/assets/icons/maillogo.png";
-import rmlogo from "@/assets/rmlogo.png";
+import rmlogo from "@/assets/rmlogov2.png";
 import IconLink from "@/components/IconLink";
 import Image from "next/image";
 
