@@ -66,16 +66,16 @@ const projects = [
     imgSrc: KDT,
     description: `I oversaw the Digital Producer role where I was in charge of their website development, maintenance. 
       I also developed a custom CMS for them to manage their website content such as links, positions, and sponsors.
-      This website went through multiple iterations, from a simple HTML/CSS website to a ReactJS + TailwindCSS website, and now to a Vite + ReactTS + shadcn/ui website.`,
+      Multiple iterations of the website were created, now it is in its v4 stage, built with NextJS and shadcn/ui with optimized SEO and performance.`,
     link: "https://kdtsuo.vercel.app",
-    github_link: "https://github.com/kdtsuo/v3",
+    github_link: "https://github.com/kdtsuo/v4",
     stacks: [
       HTML5Logo,
       CSS3Logo,
       JavaScriptLogo,
       TypeScriptLogo,
       NodeJSLogo,
-      ViteLogo,
+      NextJSLogo,
       ReactLogo,
       TypeScriptLogo,
       TailwindCSSLogo,
@@ -232,12 +232,12 @@ const ProjectFragment: React.FC<ProjectFragmentProps> = ({
   github_link,
 }) => {
   return (
-    <Card className="grid grid-cols-1 xl:grid-cols-3 gap-0 ">
-      <Card className="border-l-0 border-none rounded-none shadow-none py-2">
-        <CardContent className="p-2 md:p-6 ">
+    <Card className='grid grid-cols-1 xl:grid-cols-3 gap-0 '>
+      <Card className='border-l-0 border-none rounded-none shadow-none py-2'>
+        <CardContent className='p-2 md:p-6 '>
           <AspectRatio ratio={16 / 9}>
             <Image
-              className="h-full w-full object-cover"
+              className='h-full w-full object-cover'
               src={imgSrc}
               alt={title}
               width={1920}
@@ -248,19 +248,19 @@ const ProjectFragment: React.FC<ProjectFragmentProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="w-full xl:col-span-2 border-none shadow-none py-2">
+      <Card className='w-full xl:col-span-2 border-none shadow-none py-2'>
         <CardHeader>
-          <CardTitle className="text-3xl md:text-4xl font-extralight text-center xl:text-left">
+          <CardTitle className='text-3xl md:text-4xl font-extralight text-center xl:text-left'>
             {title}
           </CardTitle>
-          <CardDescription className="flex flex-col space-y-2">
-            <div className="text-center xl:text-left">Skills Gained & Used</div>
+          <CardDescription className='flex flex-col space-y-2'>
+            <div className='text-center xl:text-left'>Skills Gained & Used</div>
             {stacks && (
-              <div className="flex items-center justify-center xl:justify-start flex-wrap gap-2 not-dark:invert-100 dark:invert-0">
+              <div className='flex items-center justify-center xl:justify-start flex-wrap gap-2 not-dark:invert-100 dark:invert-0'>
                 {stacks.map((stack, index) => (
                   <Image
                     key={`${stack}-${index}`}
-                    className="w-6 h-auto"
+                    className='w-6 h-auto'
                     src={stack}
                     alt={stack}
                     width={24}
@@ -272,14 +272,14 @@ const ProjectFragment: React.FC<ProjectFragmentProps> = ({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-base md:text-lg">{description}</div>
+          <div className='text-base md:text-lg'>{description}</div>
         </CardContent>
-        <CardFooter className="flex flex-wrap justify-end gap-4">
+        <CardFooter className='flex flex-wrap justify-end gap-4'>
           {github_link && (
             <Button
               variant={"secondary"}
-              size="lg"
-              className="w-full md:w-auto"
+              size='lg'
+              className='w-full md:w-auto'
               onClick={() => window.open(github_link)}
             >
               View Repository
@@ -288,8 +288,8 @@ const ProjectFragment: React.FC<ProjectFragmentProps> = ({
           )}
           {link && (
             <Button
-              size="lg"
-              className="w-full md:w-auto"
+              size='lg'
+              className='w-full md:w-auto'
               onClick={() => window.open(link)}
             >
               View Project
@@ -309,30 +309,30 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
   const displayedProjects = limitDisplay ? projects.slice(0, 3) : projects;
 
   return (
-    <div className="container mx-auto px-0 ">
-      <div className="flex w-full flex-col items-center justify-start h-auto">
-        <Card className="w-full border-t-0 border-x-0 border-b-0 rounded-none shadow-none">
+    <div className='container mx-auto px-0 '>
+      <div className='flex w-full flex-col items-center justify-start h-auto'>
+        <Card className='w-full border-t-0 border-x-0 border-b-0 rounded-none shadow-none'>
           <CardHeader>
-            <CardTitle className="text-4xl md:text-6xl font-extralight">
+            <CardTitle className='text-4xl md:text-6xl font-extralight'>
               Projects
             </CardTitle>
-            <CardDescription className="text-sm md:text-base">
+            <CardDescription className='text-sm md:text-base'>
               Here are some of the projects I&apos;ve worked on.
             </CardDescription>
           </CardHeader>
           <div
-            className="container border-t-0 border-x-0
-           border-b rounded-none w-full border-dashed"
+            className='container border-t-0 border-x-0
+           border-b rounded-none w-full border-dashed'
           ></div>
-          <CardContent className="space-y-6 md:space-y-4 ">
+          <CardContent className='space-y-6 md:space-y-4 '>
             {displayedProjects.map((project) => (
               <ProjectFragment key={project.title} {...project} />
             ))}
 
             {limitDisplay && (
-              <div className="flex justify-center pt-6">
-                <Link href="/projects">
-                  <Button size="lg" variant="outline" className="group">
+              <div className='flex justify-center pt-6'>
+                <Link href='/projects'>
+                  <Button size='lg' variant='outline' className='group'>
                     See More
                     <ArrowRight />
                   </Button>
