@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "rin meng",
@@ -27,6 +28,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Analytics />
+            <SpeedInsights />
           </ThemeProvider>
         </body>
       </html>
