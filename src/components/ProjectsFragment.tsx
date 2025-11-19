@@ -89,7 +89,7 @@ const projects = [
   {
     title: "next-shadcn-supabase-starter",
     imgSrc: NSSS,
-    description: `A comprehensive starter template with everything you need to build modern web applications. 
+    description: `A comprehensive starter template with everything you need to build modern web applications by me. 
     Features enterprise-grade security with Supabase Auth, email verification, protected routes, and middleware proxy. 
     Built with cutting-edge technologies including Next.js 15 App Router, TypeScript, Tailwind CSS, and Shadcn UI. 
     Includes scalable architecture with API versioning, server components, and modular design for optimal developer experience.`,
