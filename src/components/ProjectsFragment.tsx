@@ -47,6 +47,7 @@ import HIKELOWNA from "@/assets/projects/HIKELOWNA.png";
 import PHIL331 from "@/assets/projects/PHIL331.png";
 import COSC416 from "@/assets/projects/COSC416.png";
 import SEAC from "@/assets/projects/SEAC.png";
+import NSSS from "@/assets/projects/NSSS.png";
 
 import Image, { StaticImageData } from "next/image";
 
@@ -83,6 +84,31 @@ const projects = [
       VercelLogo,
       SupabaseLogo,
       PostgreSQLLogo,
+    ],
+  },
+  {
+    title: "next-shadcn-supabase-starter",
+    imgSrc: NSSS,
+    description: `A comprehensive starter template with everything you need to build modern web applications. 
+    Features enterprise-grade security with Supabase Auth, email verification, protected routes, and middleware proxy. 
+    Built with cutting-edge technologies including Next.js 15 App Router, TypeScript, Tailwind CSS, and Shadcn UI. 
+    Includes scalable architecture with API versioning, server components, and modular design for optimal developer experience.`,
+    link: "https://template.rinm.dev",
+    github_link: "https://github.com/rinmeng/next-shadcn-supabase-starter",
+    stacks: [
+      NextJSLogo,
+      ReactLogo,
+      TypeScriptLogo,
+      TailwindCSSLogo,
+      ShadCNUILogo,
+      SupabaseLogo,
+      PostgreSQLLogo,
+      VercelLogo,
+      NodeJSLogo,
+      HTML5Logo,
+      CSS3Logo,
+      GitLogo,
+      GitHubLogo,
     ],
   },
   {

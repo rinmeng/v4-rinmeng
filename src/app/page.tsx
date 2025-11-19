@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowBigRightIcon } from "lucide-react";
+import { ArrowBigRightIcon, SquareArrowOutUpRight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Tools from "@/components/Tools";
 import Footer from "@/components/Footer";
@@ -59,8 +59,8 @@ const AnimatedText: React.FC = () => {
   );
 
   return (
-    <div className="font-extralight min-w-full px-0 md:px-6 h-24 flex items-center overflow-hidden">
-      <div className="relative w-full text-center" key={key}>
+    <div className='font-extralight min-w-full px-0 md:px-6 h-24 flex items-center overflow-hidden'>
+      <div className='relative w-full text-center' key={key}>
         {words.map((word, wordIndex) => (
           <span
             key={wordIndex}
@@ -81,49 +81,58 @@ const AnimatedText: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <div className="overflow-x-hidden animate-fade-in">
+    <div className='overflow-x-hidden animate-fade-in'>
       <div
-        id="landing"
-        className="w-screen h-screen relative overflow-hidden animate-fade animate-duration-500"
+        id='landing'
+        className='w-screen h-screen relative overflow-hidden animate-fade animate-duration-500'
       >
         <Image
-          className="absolute inset-0 object-cover w-full h-full brightness-50"
+          className='absolute inset-0 object-cover w-full h-full brightness-50'
           src={cal}
           width={1920}
           height={1080}
-          alt="cover"
-          objectFit="cover"
+          alt='cover'
+          objectFit='cover'
         />
 
         <div
-          className="relative flex justify-center lg:justify-start items-center 
-        h-full w-full container mx-auto"
+          className='relative flex justify-center lg:justify-start items-center 
+        h-full w-full container mx-auto'
         >
           <Card
-            className="flex flex-col justify-center backdrop-blur-md gap-4 md:gap-6
+            className='flex flex-col justify-center backdrop-blur-md gap-4 md:gap-6
           bg-white/30 dark:bg-black/30 border border-white/20
-           dark:border-white/10 shadow-lg mx-4"
+           dark:border-white/10 shadow-lg mx-4'
           >
             <CardContent>
               <CardHeader>
                 <div>
-                  <div className="text-xl md:text-3xl font-bold">
+                  <div className='text-xl md:text-3xl font-bold'>
                     hi! i&apos;m <span>rin</span> and i like{" "}
                   </div>
-                  <div className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full">
+                  <div className='text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full'>
                     <AnimatedText />
                   </div>
                 </div>
               </CardHeader>
-              <div className="text-lg">
+              <div className='text-lg'>
                 hey there. i&apos;m a ubco student majoring in cs and ds.
                 i&apos;m passionate about building websites with modern
                 technologies.
               </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
-              <Link href="/projects">
-                <Button size="lg" className="w-full">
+            <CardFooter className='flex justify-end gap-4'>
+              <Link
+                href='https://template.rinm.dev'
+                target='_blank'
+                rel='noreferrer'
+              >
+                <Button variant='default' size='lg'>
+                  See how I build all my projects <SquareArrowOutUpRight />
+                </Button>
+              </Link>
+              <Link href='/projects'>
+                <Button size='lg'>
                   View Projects
                   <ArrowBigRightIcon />
                 </Button>
@@ -133,26 +142,26 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto border-x w-full border-dashed py-10"></div>
+      <div className='container mx-auto border-x w-full border-dashed py-10'></div>
       <Separator />
 
-      <div className="h-auto w-screen">
-        <Card className="relative gap-0 border-none shadow-none py-0">
-          <CardHeader className="gap-0 px-0 w-full">
+      <div className='h-auto w-screen'>
+        <Card className='relative gap-0 border-none shadow-none py-0'>
+          <CardHeader className='gap-0 px-0 w-full'>
             <CardTitle
-              className="absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
-              bg-gradient-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20"
+              className='absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
+              bg-gradient-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20'
             >
               Powering my creativity
               <br />
               with modern tools
             </CardTitle>
-            <CardContent className="px-0 flex justify-center w-full overflow-hidden">
+            <CardContent className='px-0 flex justify-center w-full overflow-hidden'>
               <Tools />
             </CardContent>
             <CardFooter
-              className="absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight 
-            bg-gradient-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent"
+              className='absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight 
+            bg-gradient-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent'
             >
               (best viewed on desktop)
             </CardFooter>
@@ -162,9 +171,9 @@ const Home: React.FC = () => {
 
       <Separator />
 
-      <div className="container mx-auto border-x w-full border-dashed py-10"></div>
-      <div className="border-b w-full border-dashed"></div>
-      <Card className="container mx-auto rounded-none border-y-0 shadow-none">
+      <div className='container mx-auto border-x w-full border-dashed py-10'></div>
+      <div className='border-b w-full border-dashed'></div>
+      <Card className='container mx-auto rounded-none border-y-0 shadow-none'>
         <ProjectsFragment limitDisplay={true} />
       </Card>
 
