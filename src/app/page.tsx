@@ -121,14 +121,14 @@ const Home: React.FC = () => {
                 technologies.
               </div>
             </CardContent>
-            <CardFooter className='flex justify-end gap-4'>
+            <CardFooter className='flex justify-end gap-4 flex-wrap'>
               <Link
                 href='https://template.rinm.dev'
                 target='_blank'
                 rel='noreferrer'
               >
                 <Button variant='default' size='lg'>
-                  See how I build all my projects <SquareArrowOutUpRight />
+                  See how my projects are built <SquareArrowOutUpRight />
                 </Button>
               </Link>
               <Link href='/projects'>
