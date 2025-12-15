@@ -26,7 +26,7 @@ const CONFIG = {
 
 const textArray: string[] = [
   "Video Editing",
-  "Developing Beautiful Websites",
+  "Making Beautiful Websites",
   "UI/UX Designs",
   "Web Development",
   "Learning New Frameworks",
@@ -55,11 +55,11 @@ const AnimatedText: React.FC = () => {
   const wordCount = words.length;
   const actualStaggerDelay = Math.min(
     CONFIG.wordStaggerDelay,
-    CONFIG.maxStaggerDelay / Math.max(1, wordCount - 1)
+    CONFIG.maxStaggerDelay / Math.max(1, wordCount - 1),
   );
 
   return (
-    <div className='font-extralight min-w-full px-0 md:px-6 h-24 flex items-center overflow-hidden'>
+    <div className='font-extralight min-w-full px-0 md:px-6 h-12 md:h-16 xl:h-24 flex items-center overflow-hidden'>
       <div className='relative w-full text-center' key={key}>
         {words.map((word, wordIndex) => (
           <span
